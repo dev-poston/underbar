@@ -88,16 +88,65 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var arrPassed = [];
+    for (var i = 0; i < collection.length; i++) {
+      if (test(collection[i]) === true) {
+        arrPassed.push(collection[i]);
+      }
+    }
+    return arrPassed;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    var arrPassed = [];
+    for (var i = 0; i < collection.length; i++) {
+      if (test(collection[i]) === false) {
+        arrPassed.push(collection[i]);
+      }
+    }
+    return arrPassed;
   };
+
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+
+    var newObj = {};
+    var newArr = [];
+    _.each(array, function(value) {
+      if (newObj[value] === undefined) {
+        newObj[value] = 1;
+      } else {
+        newObj[value]++;
+      }
+    });
+
+    _.each(newObj, function(value) {
+      
+    });
+
+    return newArray;
+
+
+    // var uniqueNums = {};
+    // for (var i = 0; i < array.length; i++) {
+    //   if (uniqueNums[array[i]] === undefined) {
+    //     uniqueNums[array[i]] = 1;
+    //   }
+    // }
+
+    // var sortedArray = [];
+    // for (var key in uniqueNums) {
+    //   var iterated = iterator(uniqueNums[key]);
+    //   if (iterated) {
+    //     sortedArray.push(uniqueNums[key]);
+    //   }
+    // }
+
+    // return sortedArray;
   };
 
 
