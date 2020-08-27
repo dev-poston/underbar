@@ -184,7 +184,32 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+
+    if (arguments.length === 3) {
+      _.each(collection, function(item) {
+        accumulator = iterator(accumulator, item);
+      });
+    } else {
+      accumulator = collection[0];
+      _.each(collection.slice(1), function(item) {
+        accumulator = iterator(accumulator, item);
+      });
+    }
+    return accumulator;
   };
+
+  //input is am array of nums, an iterator (takes in accum, item), potentially an accum
+
+  //use .each to iterate over array
+  //invoke iterator on each ele (given two arg - accum^ and item( we are iterating over using .each)
+  //reassign acc to result of invoke iterator
+
+  //if acc is not given
+  // accumulator is assigned to the first index value in the collection
+  // begin iteration at second item
+
+  //output is a single value
+
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
