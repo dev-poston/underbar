@@ -47,9 +47,7 @@
     if (n > array.length) {
       return array;
     }
-
     return array.slice(array.indexOf(n));
-
   };
 
   // Call iterator(value, key, collection) for each element of collection.
@@ -76,13 +74,11 @@
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
     var result = -1;
-
     _.each(array, function(item, index) {
       if (item === target && result === -1) {
         result = index;
       }
     });
-
     return result;
   };
 
@@ -112,10 +108,30 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    var uniArr = [];
+    var uniObj = {};
 
-
+    if (isSorted) {
+      _.each(array, function(element) {
+        let number = iterator(element);
+        if (uniObj[number] === undefined) {
+          uniObj[number] = element;
+        }
+      });
+      _.each(uniObj, function(num) {
+        uniArr.push(num);
+      });
+      return uniArr;
+    } else {
+      _.each(array, function(prop) {
+        uniObj[prop] = prop;
+      });
+      _.each(uniObj, function(val) {
+        uniArr.push(val);
+      });
+      return uniArr;
+    }
   };
-
 
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
