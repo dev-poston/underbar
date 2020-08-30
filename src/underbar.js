@@ -272,19 +272,14 @@
   _.extend = function(obj) {
     //input is an object(s)
 
-
-    var argObj = {};
+    var argObj = arguments[0];
     for (var i = 0; i < arguments.length; i++) {
       for (var key in arguments[i]) {
-        if (obj[key] === undefined) { 
-          return {};
-        } else {
-          argObj[key] = arguments[i][key];
-        }
+        argObj[key] = arguments[i][key];
       }
     }
 
-    console.log(argObj);
+    return argObj;
     //output is an object, with no duplicate properties
   };
 
