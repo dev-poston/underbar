@@ -184,7 +184,6 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-
     if (arguments.length === 3) {
       _.each(collection, function(item) {
         accumulator = iterator(accumulator, item);
@@ -198,19 +197,6 @@
     return accumulator;
   };
 
-  //input is am array of nums, an iterator (takes in accum, item), potentially an accum
-
-  //use .each to iterate over array
-  //invoke iterator on each ele (given two arg - accum^ and item( we are iterating over using .each)
-  //reassign acc to result of invoke iterator
-
-  //if acc is not given
-  // accumulator is assigned to the first index value in the collection
-  // begin iteration at second item
-
-  //output is a single value
-
-
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
     // TIP: Many iteration problems can be most easily expressed in
@@ -223,16 +209,45 @@
     }, false);
   };
 
-
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+
+    if (collection.length === 0) {
+      return true;
+    }
+
+    var hasIter = iterator || _.identity;
+
+    return _.reduce(collection, function (accum, item) {
+      if (accum === false) {
+        return false;
+      } else if (hasIter(item)) {
+        return true;
+      } else {
+        return false;
+      }
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if (collection.length === 0) {
+      return false;
+    }
+
+    var hasIterator = iterator || _.identity;
+    var foundTrue = true;
+
+    for (var i = 0; i < collection.length; i++) {
+      if (hasIterator(collection[i]) === true || typeof hasIterator(collection[i]) === 'string' || hasIterator(collection[i]) === 1) {
+        return true;
+      } else {
+        foundTrue = false;
+      }
+    }
+    return foundTrue;
   };
 
 
@@ -255,6 +270,22 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    //input is an object(s)
+
+
+    var argObj = {};
+    for (var i = 0; i < arguments.length; i++) {
+      for (var key in arguments[i]) {
+        if (obj[key] === undefined) { 
+          return {};
+        } else {
+          argObj[key] = arguments[i][key];
+        }
+      }
+    }
+
+    console.log(argObj);
+    //output is an object, with no duplicate properties
   };
 
   // Like extend, but doesn't ever overwrite a key that already
